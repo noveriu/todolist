@@ -60,7 +60,8 @@ export default function TodoList() {
 
   const addTask = async (): Promise<void> => {
     const { value: formValues } = await Swal.fire({
-      title: '<span style="font-size: 1.5rem; font-weight: 700; color: #0ea5e9;">Tambah Tugas Baru ✨</span>',
+      title:
+        '<span style="font-size: 1.5rem; font-weight: 700; color: #0ea5e9;">Tambah Tugas Baru ✨</span>',
       html:
         '<div style="display: flex; flex-direction: column; gap: 12px;">' +
         '<input id="swal-input1" class="swal2-input" placeholder="Nama tugas" style="border-radius: 12px; padding: 10px 12px; border: 1px solid #dbeafe; background: #f0f9ff;" />' +
@@ -79,10 +80,13 @@ export default function TodoList() {
       },
       focusConfirm: false,
       preConfirm: () => {
-        return [
-          (document.getElementById('swal-input1') as HTMLInputElement)?.value,
-          (document.getElementById('swal-input2') as HTMLInputElement)?.value,
-        ];
+        const taskName = (document.getElementById('swal-input1') as HTMLInputElement)?.value.trim();
+        const taskDeadline = (document.getElementById('swal-input2') as HTMLInputElement)?.value;
+        if (!taskName || !taskDeadline) {
+          Swal.showValidationMessage('Nama tugas dan deadline gaboleh kosong yaa');
+          return;
+        }
+        return [taskName, taskDeadline];
       },
     });
 
@@ -127,10 +131,13 @@ export default function TodoList() {
       confirmButtonText: 'Simpan',
       cancelButtonText: 'Batal',
       preConfirm: () => {
-        return [
-          (document.getElementById('swal-input1') as HTMLInputElement)?.value,
-          (document.getElementById('swal-input2') as HTMLInputElement)?.value,
-        ];
+        const taskName = (document.getElementById('swal-input1') as HTMLInputElement)?.value.trim();
+        const taskDeadline = (document.getElementById('swal-input2') as HTMLInputElement)?.value;
+        if (!taskName || !taskDeadline) {
+          Swal.showValidationMessage('Nama tugas dan deadline gaboleh kosong yaa');
+          return;
+        }
+        return [taskName, taskDeadline];
       },
     });
 
